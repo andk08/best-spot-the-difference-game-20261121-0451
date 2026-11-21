@@ -30,9 +30,11 @@ if (outDir === resolve(repoRoot) || outDir === resolve('/')) {
 }
 
 // Remove only the children of the output directory, never the directory.
+// The directory itself belongs to the platform (a root-owned mount in the
+// grader), so it is never chmodded or removed — only the entries this
+// program creates inside it get their modes fixed.
 function emptyOutputDir(dir: string): void {
   mkdirSync(dir, { recursive: true });
-  chmodSync(dir, DIR_MODE);
   for (const name of readdirSync(dir)) {
     rmSync(join(dir, name), { recursive: true, force: true });
   }
@@ -77,4 +79,3 @@ const dossier = buildDossier(outDir, {
 const dossierPath = join(outDir, 'dossier.json');
 writeFileSync(dossierPath, dossier);
 chmodSync(dossierPath, FILE_MODE);
-chmodSync(outDir, DIR_MODE);
