@@ -1,0 +1,260 @@
+/* Twin Peeks — Spot the Difference. All styling for the HUD, stage and overlays. */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #141b2e;
+  color: #f2f5ff;
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px 14px 8px;
+}
+
+/* ---- HUD bar ---- */
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #1d2742;
+  border: 2px solid #33415e;
+  border-radius: 14px;
+  padding: 8px 16px;
+}
+
+.hud-left { min-width: 190px; }
+#game-title {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffd93b;
+  line-height: 1;
+}
+#game-sub {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #9fb4dd;
+  margin-top: 3px;
+}
+
+.hud-mid { flex: 1; min-width: 220px; }
+#level-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+#timer-wrap {
+  position: relative;
+  height: 22px;
+  background: #0e1424;
+  border: 1px solid #33415e;
+  border-radius: 11px;
+  overflow: hidden;
+}
+#timer-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #2fbf71, #7ee081);
+  border-radius: 10px;
+  transition: width 0.2s linear;
+}
+#timer-fill.low { background: linear-gradient(90deg, #e63946, #ff7b54); }
+#timer-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.hud-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 62px;
+}
+.stat-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9fb4dd;
+}
+.stat span:last-child {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+}
+#found-count { color: #ffd93b !important; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+}
+button:focus-visible {
+  outline: 3px solid #ffd93b;
+  outline-offset: 2px;
+}
+#hint-btn {
+  background: #ffd93b;
+  color: #3a2b00;
+  font-size: 15px;
+  padding: 9px 14px;
+}
+#hint-btn:disabled {
+  background: #5a5f6e;
+  color: #c9cede;
+  cursor: default;
+}
+#mute-btn, #restart-btn {
+  background: #2c3a5e;
+  color: #f2f5ff;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+}
+
+/* ---- Stage ---- */
+#stage {
+  position: relative;
+  margin-top: 10px;
+  border: 2px solid #33415e;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0e1424;
+}
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+}
+
+/* ---- Overlay screens (title / level complete / win / game over) ---- */
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 14, 28, 0.72);
+}
+#overlay.hidden, .hidden { display: none !important; }
+#overlay-card {
+  background: #1d2742;
+  border: 2px solid #ffd93b;
+  border-radius: 18px;
+  padding: 26px 34px;
+  max-width: 620px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+#overlay-title {
+  margin: 0 0 10px;
+  font-size: 34px;
+  font-weight: 900;
+  color: #ffd93b;
+}
+#overlay-body {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #e6ebf8;
+}
+#overlay-body .big-score {
+  display: block;
+  font-size: 30px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 6px 0;
+}
+#overlay-body .stars {
+  font-size: 40px;
+  letter-spacing: 6px;
+  color: #ffd93b;
+  margin: 4px 0;
+}
+#overlay-body ul {
+  text-align: left;
+  display: inline-block;
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+#overlay-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 18px;
+}
+#overlay-primary, #overlay-secondary {
+  font-size: 17px;
+  padding: 12px 26px;
+}
+#overlay-primary { background: #ffd93b; color: #3a2b00; }
+#overlay-secondary { background: #2c3a5e; color: #f2f5ff; }
+#overlay-hint {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: #9fb4dd;
+}
+
+/* ---- Toast (combo / penalty feedback) ---- */
+#toast {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffd93b;
+  color: #3a2b00;
+  font-weight: 900;
+  font-size: 17px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+#toast.bad { background: #e63946; color: #ffffff; }
+
+/* ---- Footer ---- */
+#keys {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #9fb4dd;
+}
+#keys b {
+  color: #ffd93b;
+  background: #2c3a5e;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin-right: 2px;
+}
+
+#status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
